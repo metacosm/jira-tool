@@ -4,6 +4,7 @@ let JiraClient = require('jira-connector')
 module.exports = {
   newClient,
   GetIssueById: require('./get.js').GetIssueById,
+  QueryIssues: require('./get.js').QueryIssues,
   PrintIssue: require('./get.js').PrintIssue,
   UpdateIssueStatus: require('./update.js').UpdateIssueStatus,
   EditIssue: require('./edit.js').EditIssue

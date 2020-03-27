@@ -2,6 +2,7 @@ let util = require('./util.js')
 
 module.exports = {
   GetIssueById,
+  QueryIssues,
   PrintIssue: printIssue
 }
 
@@ -13,8 +14,26 @@ async function GetIssueById (client, id) {
     })
     printIssue(id, util.convertJsontoObject(result))
   } catch (e) {
-    util.Log.error(`Unable to get JIRA issue - Status code of error is:\nutil{e}`)
+    util.Log.error(`Unable to get JIRA issue - Status code of error is:\nutil{e} ${e}`)
   }
+}
+
+async function QueryIssues (client, qs) {
+client.search.search({
+    jql: 'type = bug'
+}, (error, issues)  => {
+    if (err) throw err; // probably should be handling errors in case you get one from Jira
+    const issue = issues.issues[0]; // this just gets the first issue in the resultset
+    console.log(issue.fields.issueKey, issue.fields.issuetype.name, issue.fields.summary, issue.fields.status.name, issue.fields.resolution.name, issue.fields.labels, issue.fields.customfield_12600, issue.fields.customfield_14212, issue.fields.customfield_10009, issue.fields.customfield_14200, issue.fields.customfield_14205, issue.fields.customfield_14203, issue.fields.customfield_14204, issue.fields.customfield_10004);
+    return issues;
+});
+//  try {
+//    var result = await client.search.search(qs);
+//    return result;
+//  } catch (e) {
+//    util.Log.error(`Unable to get JIRA issue - Status code of error is:\nutil{e} ${e}`)
+//    throw e
+//  }
 }
 
 function printIssue (id, issueType) {

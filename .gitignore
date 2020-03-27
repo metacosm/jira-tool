@@ -1,3 +1,12 @@
-.idea
+
+# Build folders
 target/
+bin
+
+# NodeJS
 node_modules
+package-lock.json
+
+# IntelliJ
+.idea
+*.iml
