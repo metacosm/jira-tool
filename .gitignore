@@ -4,6 +4,7 @@ target/
 bin
 
 # NodeJS
+!nodejs/bin
 node_modules
 package-lock.json
 
